@@ -15,4 +15,4 @@ The intended workflow for processing Excel documents is to:
 
 ## Design:
 
-To be able be able to consistently replace A-numbers across multiple files, the program loads on start-up, and saves on successful termination a dictionary from A-numbers to UID which it updates during running. The location and name of this file can be provided at program invokation. If the file is not present, then a program creates a new empty dictionary at start-up. This file is saved in the human-readable format JSON.
+To be able be able to consistently replace A-numbers across multiple files, the program loads on start-up, and saves on successful termination a dictionary from A-numbers to UIDs, which it updates during running. The location and name of this file can be provided at program invocation. If the file is not present, then a program creates a new empty dictionary at start-up. This file is saved in the human-readable format JSON.
