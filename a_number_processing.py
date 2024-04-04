@@ -70,7 +70,8 @@ def replace_document_a_numbers(a_number_to_uid, uid_generator, input_file_path, 
             for (column_name, column_data) in selected_columns.items():
                 for (row_number, cell_contents) in column_data.items():
                     if isinstance(cell_contents, str):
-                        sheet.at[row_number, column_name] = replace_text_a_numbers(a_number_to_uid, uid_generator, cell_contents)
+                        sheet.at[row_number, column_name] = replace_text_a_numbers(a_number_to_uid, uid_generator,
+                                                                                   cell_contents)
         
         with pd.ExcelWriter(output_file_path, engine='xlsxwriter') as writer:
             for (sheet_name, sheet) in sheets.items():
@@ -84,8 +85,12 @@ def main():
     parser = argparse.ArgumentParser(prog='a_number_processing',
                                      description='Replaces A-numbers with UIDs.')
     parser.add_argument('file_to_process', type=pathlib.Path, help='The file path of a \'xlsx\' to process.')
-    parser.add_argument('-s', '--serialization_path', type=pathlib.Path, default=DEFAULT_SERIALIZATION_PATH, help=f'The file path to serialized a-number-to-uid map, without this option the default is {DEFAULT_SERIALIZATION_PATH}')
-    parser.add_argument('-cn', '--column_numbers', nargs='+', type=int, default=None, help='Select the column numbers that should be processed. Columns are counted starting from 0 for the first column. If this option is not provided then the program processes all columns.')
+    parser.add_argument('-s', '--serialization_path', type=pathlib.Path, default=DEFAULT_SERIALIZATION_PATH,
+                        help=f'The file path to serialized a-number-to-uid map, '\
+                             f'without this option the default is {DEFAULT_SERIALIZATION_PATH}')
+    parser.add_argument('-cn', '--column_numbers', nargs='+', type=int, default=None,
+                        help='Select the column numbers that should be processed. Columns are counted starting '\
+                             'from 0 for the first column. If this option is not provided then the program processes all columns.')
     args = parser.parse_args()
 
     a_number_to_uid = load_a_number_to_uid_map(args.serialization_path)
