@@ -11,8 +11,10 @@ This Python program contains only a single file, and its usage can be queried us
 The intended workflow for processing Excel documents is to:
 1. At the command-line, use this program to convert the A-numbers in an Excel document to UIDs, for example:
 
-`python ./a_number_processing /path/to/file_to_process.xlsx -s /path/to/a_number_to_uid.json -cn 0 2`
+`python ./a_number_processing --files filepath_A:col_A1,col_A2 filepath_B:col_B1 ...`
 
 ## Design:
 
-To be able be able to consistently replace A-numbers across multiple files, the program loads on start-up, and saves on successful termination a dictionary from A-numbers to UIDs, which it updates during running. The location and name of this file can be provided at program invocation. If the file is not present, then a program creates a new empty dictionary at start-up. This file is saved in the human-readable format JSON.
+The program is able to consistently able to replace A-Numbers across multiple files in one go. Optionally, it has the ability to replaces A-Numbers across multiple files over the course of more than one use of the program, by providing functionality to save and load the internal A-Number to Unique ID map that is created/used during program executation. To enable this feature, one simply has to provide a location of where they want to save and load from. If during loading the file cannot be found (which is the case when using the feature for the first time, then the program starts with an empty A-Number to Unique ID map).
+
+`python ./a_number_processing --files filepath_A:col_A1,col_A2 filepath_B:col_B1 ... --serialization_path /location/to/store/a-number-to-uid-map.zlib`
